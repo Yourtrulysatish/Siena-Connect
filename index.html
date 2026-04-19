@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siena Connect</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="go('home')">Siena Connect</a>
+  <ul class="nav-links">
+    <li><a onclick="go('home')" data-page="home">Home</a></li>
+    <li><a onclick="go('guide')" data-page="guide">Student Guide</a></li>
+    <li><a onclick="go('events')" data-page="events">Events</a></li>
+    <li><a onclick="go('community')" data-page="community">Community</a></li>
+    <li><a onclick="go('about')" data-page="about">About Us</a></li>
+  </ul>
+  <div class="nav-search" onclick="openSearch()">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="nav-search-input" placeholder="Search…" readonly onclick="openSearch()" />
+  </div>
+</nav>
+
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" onclick="closeSearchOutside(event)">
+  <div class="search-box">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search-main-input" placeholder="Search guide, events, community…" oninput="runSearch(this.value)" />
+      <button class="search-close" onclick="closeSearch()">✕</button>
+    </div>
+    <div id="search-results" class="search-results">
+      <div class="search-empty">Start typing to search across all pages…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="home">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="fade-in">
+      <span class="hero-tag">For International Students in Siena</span>
+      <h1>Feel <em>like home</em><br>in Siena.</h1>
+      <p class="hero-sub">A platform that guides international students through Italian bureaucracy, discovers the city's best, and builds a real community.</p>
+      <div class="btns">
+        <button class="btn-primary" onclick="go('guide')">Student Guide →</button>
+        <button class="btn-ghost" onclick="go('community')">Join Community</button>
+      </div>
+    </div>
+    <div class="hero-cards fade-in" style="animation-delay:.15s">
+      <div class="card-wrap">
+        <div class="flags-chip"><div class="fl">🇮🇳 🇹🇳 🇲🇳</div><div style="font-size:.68rem;margin-top:.25rem;color:var(--muted)">Founded by students</div></div>
+        <div class="hcard hcard-dark"><div class="ci">🏛️</div><h3>Your Guide to Siena</h3><p>Step by step help for codice fiscale, permesso di soggiorno, bus passes, and more.</p></div>
+        <div class="hcard hcard-float"><div class="stat">4k–6k</div><p>international students arrive in Siena every year</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item"><div class="n">4,000+</div><div class="l">Students per year</div></div>
+    <div class="stat-item"><div class="n">28+</div><div class="l">Nationalities</div></div>
+    <div class="stat-item"><div class="n">3</div><div class="l">Founding countries</div></div>
+    <div class="stat-item"><div class="n">1</div><div class="l">Platform for all</div></div>
+  </div>
+
+  <div class="feat-strip">
+    <div class="feat-header reveal">
+      <div><div class="section-tag">What We Offer</div><h2 class="section-title">Everything you need,<br><em>in one place</em></h2></div>
+      <p class="section-body">Instead of searching across different sources, students access the essentials quickly and clearly.</p>
+    </div>
+    <div class="feat-grid reveal" style="transition-delay:.1s">
+      <div class="fcard hl" onclick="go('guide')"><div class="fi">🗺️</div><h3>Student Guide</h3><p>Step-by-step instructions for every administrative procedure you'll face when you arrive in Italy.</p><span class="learn">Explore guide →</span></div>
+      <div class="fcard" onclick="go('events')"><div class="fi">🎭</div><h3>Events & Activities</h3><p>Discover cultural events, student meetups, and social activities happening in and around Siena.</p><span class="learn">Browse events →</span></div>
+      <div class="fcard" onclick="go('community')"><div class="fi">💬</div><h3>Community Forum</h3><p>Ask questions, share experiences, and reply to others during those first crucial months in Siena.</p><span class="learn">Join the conversation →</span></div>
+    </div>
+  </div>
+
+  <!-- MAP SECTION -->
+  <div class="map-section">
+    <div class="map-inner">
+      <div class="map-header reveal">
+        <div><div class="section-tag">Key Student Locations</div><h2 class="section-title">Find your way<br>around <em>Siena</em></h2></div>
+        <p class="section-body">All the places you'll need as a student: offices, canteens, hospitals, bus terminals, mapped for you.</p>
+      </div>
+      <div class="map-container reveal" style="transition-delay:.1s;height:auto;padding:0">
+        <div id="custom-map" style="width:100%;height:440px;background:linear-gradient(160deg,#e8ddd0 0%,#d9ccbc 100%);position:relative;overflow:hidden;border-radius:20px;cursor:default">
+          <!-- street grid -->
+          <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 700 440" xmlns="http://www.w3.org/2000/svg">
+            <rect width="700" height="440" fill="#ede3d6"/>
+            <ellipse cx="350" cy="220" rx="260" ry="190" fill="#ddd4c0" opacity=".5"/>
+            <rect x="80" y="300" width="120" height="80" rx="10" fill="#c8d8b8" opacity=".6"/>
+            <rect x="500" y="60" width="100" height="70" rx="8" fill="#c8d8b8" opacity=".5"/>
+            <ellipse cx="180" cy="120" rx="60" ry="40" fill="#c8d8b8" opacity=".5"/>
+            <path d="M0,220 Q180,200 350,220 Q500,240 700,215" stroke="#c5b49a" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <path d="M350,0 Q340,110 350,220 Q360,330 355,440" stroke="#c5b49a" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <path d="M0,320 Q200,310 400,300 Q550,295 700,310" stroke="#c8b8a0" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path d="M100,0 Q130,150 160,300 Q180,380 190,440" stroke="#c8b8a0" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M500,0 Q510,120 520,250 Q525,350 530,440" stroke="#c8b8a0" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M0,100 Q200,90 400,110 Q550,125 700,105" stroke="#cfc0a8" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M0,380 Q250,370 500,375 Q600,377 700,372" stroke="#cfc0a8" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M200,160 Q270,190 350,185 Q420,180 470,160" stroke="#d8cbb6" stroke-width="3" fill="none"/>
+            <path d="M250,260 Q310,250 370,255 Q430,260 480,245" stroke="#d8cbb6" stroke-width="3" fill="none"/>
+            <ellipse cx="350" cy="220" rx="38" ry="28" fill="#d4a853" opacity=".35"/>
+            <ellipse cx="350" cy="220" rx="28" ry="20" fill="#d4a853" opacity=".45"/>
+            <text x="100" y="212" font-size="8" fill="#a08060" font-family="Helvetica Neue,Arial,sans-serif" letter-spacing="1">Via Banchi di Sotto</text>
+            <text x="360" y="140" font-size="7" fill="#a08060" font-family="Helvetica Neue,Arial,sans-serif" transform="rotate(90,360,140)" letter-spacing="1">Via Massetana</text>
+          </svg>
+          <!-- Map pins -->
+          <div style="position:absolute;left:38%;top:32%;transform:translate(-50%,-100%);text-align:center;cursor:pointer" onclick="mapPopup(0)">
+            <div style="background:#C4623A;color:#fff;border-radius:50%;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 10px rgba(196,98,58,.5);margin:0 auto">🏛️</div>
+            <div style="background:#fff;border-radius:6px;padding:.2rem .5rem;font-size:.65rem;font-weight:600;color:#1A1208;margin-top:.2rem;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)">Università di Siena</div>
+          </div>
+          <div style="position:absolute;left:62%;top:55%;transform:translate(-50%,-100%);text-align:center;cursor:pointer" onclick="mapPopup(1)">
+            <div style="background:#5B8DB8;color:#fff;border-radius:50%;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 10px rgba(91,141,184,.5);margin:0 auto">📄</div>
+            <div style="background:#fff;border-radius:6px;padding:.2rem .5rem;font-size:.65rem;font-weight:600;color:#1A1208;margin-top:.2rem;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)">Agenzia delle Entrate</div>
+          </div>
+          <div style="position:absolute;left:50%;top:48%;transform:translate(-50%,-100%);text-align:center;cursor:pointer" onclick="mapPopup(2)">
+            <div style="background:#6B8F71;color:#fff;border-radius:50%;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 10px rgba(107,143,113,.5);margin:0 auto">🚌</div>
+            <div style="background:#fff;border-radius:6px;padding:.2rem .5rem;font-size:.65rem;font-weight:600;color:#1A1208;margin-top:.2rem;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)">Piazza Gramsci Bus</div>
+          </div>
+          <div style="position:absolute;left:75%;top:70%;transform:translate(-50%,-100%);text-align:center;cursor:pointer" onclick="mapPopup(3)">
+            <div style="background:#C4623A;color:#fff;border-radius:50%;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 10px rgba(196,98,58,.5);margin:0 auto">🏥</div>
+            <div style="background:#fff;border-radius:6px;padding:.2rem .5rem;font-size:.65rem;font-weight:600;color:#1A1208;margin-top:.2rem;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)">Policlinico Le Scotte</div>
+          </div>
+          <div style="position:absolute;left:28%;top:58%;transform:translate(-50%,-100%);text-align:center;cursor:pointer" onclick="mapPopup(4)">
+            <div style="background:#D4A853;color:#fff;border-radius:50%;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 10px rgba(212,168,83,.5);margin:0 auto">🍽️</div>
+            <div style="background:#fff;border-radius:6px;padding:.2rem .5rem;font-size:.65rem;font-weight:600;color:#1A1208;margin-top:.2rem;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)">Mensa San Miniato</div>
+          </div>
+          <div style="position:absolute;left:52%;top:28%;transform:translate(-50%,-100%);text-align:center;cursor:pointer" onclick="mapPopup(5)">
+            <div style="background:#7B6EA6;color:#fff;border-radius:50%;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 10px rgba(123,110,166,.5);margin:0 auto">🏦</div>
+            <div style="background:#fff;border-radius:6px;padding:.2rem .5rem;font-size:.65rem;font-weight:600;color:#1A1208;margin-top:.2rem;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12)">Monte dei Paschi</div>
+          </div>
+          <div id="map-popup" style="display:none;position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);background:#fff;border-radius:14px;padding:1rem 1.4rem;box-shadow:0 8px 28px rgba(26,18,8,.18);min-width:220px;max-width:280px;z-index:10;border-top:3px solid var(--terra)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <div id="popup-content" style="font-size:.82rem;color:#7A6A52;line-height:1.5"></div>
+              <button onclick="document.getElementById('map-popup').style.display='none'" style="background:none;border:none;font-size:1rem;color:#C4623A;cursor:pointer;margin-left:.6rem;flex-shrink:0">✕</button>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:1rem;right:1rem;background:rgba(255,255,255,.85);border-radius:50%;width:2.4rem;height:2.4rem;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.1)">🧭</div>
+          <div style="position:absolute;bottom:1rem;left:1rem;background:rgba(255,255,255,.8);border-radius:6px;padding:.2rem .6rem;font-size:.65rem;color:#7A6A52">Siena City Centre</div>
+        </div>
+      </div>
+      <div class="map-pins reveal" style="transition-delay:.15s">
+        <div class="map-pin"><span class="pi">🏛️</span><div><strong>Università degli Studi di Siena</strong><br>Via Banchi di Sotto 55</div></div>
+        <div class="map-pin"><span class="pi">📄</span><div><strong>Agenzia delle Entrate</strong><br>Via Massetana Romana 12 (Codice Fiscale)</div></div>
+        <div class="map-pin"><span class="pi">🚌</span><div><strong>Piazza Gramsci Bus Terminal</strong><br>Main hub for urban & regional buses</div></div>
+        <div class="map-pin"><span class="pi">🏥</span><div><strong>Policlinico Le Scotte</strong><br>Viale Mario Bracci 16 (Main Hospital)</div></div>
+        <div class="map-pin"><span class="pi">🍽️</span><div><strong>Mensa di San Miniato</strong><br>University canteen — subsidised meals</div></div>
+        <div class="map-pin"><span class="pi">🏦</span><div><strong>Monte dei Paschi di Siena</strong><br>Piazza Salimbeni — world's oldest bank</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GUIDE ══ -->
+<div class="page" id="guide">
+  <div class="guide-hero">
+    <div class="section-tag">Student Guide</div>
+    <h1 class="section-title">Navigate <em>Italy</em> step by step</h1>
+    <p class="section-body">Everything you need to know about living in Siena — from your first documents to your daily routine.</p>
+    <div class="guide-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="guide-search-input" placeholder="Search guide topics…" oninput="searchGuide(this.value)" />
+    </div>
+  </div>
+  <div class="guide-body">
+    <div class="cat-tabs" id="cat-tabs">
+      <button class="cat-tab active" onclick="switchCat('documents',this)">📄 Documents</button>
+      <button class="cat-tab" onclick="switchCat('housing',this)">🏠 Housing</button>
+      <button class="cat-tab" onclick="switchCat('transport',this)">🚌 Transport</button>
+      <button class="cat-tab" onclick="switchCat('health',this)">🏥 Health</button>
+      <button class="cat-tab" onclick="switchCat('banking',this)">🏦 Banking</button>
+      <button class="cat-tab" onclick="switchCat('university',this)">🎓 University</button>
+    </div>
+    <div id="guide-no-results" class="no-results">No results found. Try a different search term.</div>
+    <div class="guide-section active" id="cat-documents">
+      <div class="step-list">
+        <div class="gstep" data-keywords="codice fiscale tax code agenzia entrate">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">1</div><span class="gstep-icon">🔢</span><h4>Codice Fiscale (Tax Code)</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>The codice fiscale is a 16-character alphanumeric code used to identify you in all dealings with Italian public administration. You'll need it for almost everything — opening a bank account, renting an apartment, registering at university.</p><ul><li>Go to the nearest Agenzia delle Entrate office in Siena (Via Massetana Romana)</li><li>Bring your passport and a completed Modello AA4/8 form (available at the office)</li><li>The code is usually issued on the same day, for free</li><li>You can also apply at the Italian consulate in your home country before arrival</li></ul><div class="tip"><strong>Tip:</strong> Get this on your first or second day. Almost every other step depends on having it.</div></div>
+        </div>
+        <div class="gstep" data-keywords="permesso soggiorno residence permit questura poste">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">2</div><span class="gstep-icon">📋</span><h4>Permesso di Soggiorno (Residence Permit)</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>If you are a non-EU citizen, you must apply for a permesso di soggiorno within 8 working days of arriving in Italy.</p><ul><li>Obtain a "Kit Postale" (postal kit) from any post office (Poste Italiane) — it's free</li><li>Fill in the forms included in the kit carefully</li><li>Submit the completed kit at the post office (Sportello Amico) — there's a fee of about €30</li><li>You will receive a receipt, which acts as your temporary permit</li><li>Attend the appointment at the Questura for fingerprinting</li></ul><div class="tip"><strong>Tip:</strong> The university's International Office often runs workshops to help students fill in the forms correctly.</div></div>
+        </div>
+        <div class="gstep" data-keywords="residency comune registration anagrafe">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">3</div><span class="gstep-icon">🏛️</span><h4>Residency Registration (Comune)</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>If you plan to stay in Siena for more than 3 months, you can register your residency at the Comune di Siena (City Hall).</p><ul><li>Go to the Anagrafe office at Palazzo Pubblico, Piazza del Campo</li><li>Bring your passport, codice fiscale, permesso di soggiorno, and proof of address</li><li>A municipal officer may visit your address to verify your residence</li></ul><div class="tip"><strong>Tip:</strong> Residency registration in Siena can qualify you for reduced bus fares and other local benefits.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-section" id="cat-housing">
+      <div class="step-list">
+        <div class="gstep" data-keywords="accommodation apartment room housing dsu idealista rent">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">1</div><span class="gstep-icon">🔍</span><h4>Finding Accommodation</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>Siena has several accommodation options for students. The earlier you start looking, the better.</p><ul><li><strong>University residences (DSU Toscana):</strong> Subsidised housing for eligible students — apply via the DSU Toscana website</li><li><strong>Private rooms:</strong> Check Idealista, Immobiliare.it, and local Facebook groups like "Affitti Siena studenti"</li><li><strong>Shared apartments:</strong> Often the most affordable option</li><li>Average costs: €300–€550/month for a room, €600–€900 for a studio</li></ul><div class="tip"><strong>Tip:</strong> Always visit (or video call) before paying any deposit. Be cautious of listings that seem unusually cheap.</div></div>
+        </div>
+        <div class="gstep" data-keywords="contract rental lease deposit cauzione">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">2</div><span class="gstep-icon">📝</span><h4>Signing a Rental Contract</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>Most landlords require a regular rental contract (contratto di locazione), which must be registered with the Agenzia delle Entrate.</p><ul><li>You will need your codice fiscale to sign any contract</li><li>Common contract types: 4+4 (standard), 3+2 (transitional), or short-term</li><li>Expect to pay 1–2 months deposit (cauzione) upfront</li><li>Always ask for a registered contract — it protects both you and the landlord</li></ul><div class="tip"><strong>Tip:</strong> A registered contract is required to register your residency and for the permesso di soggiorno application.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-section" id="cat-transport">
+      <div class="step-list">
+        <div class="gstep" data-keywords="bus pass abbonamento tiemme ticket transport">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">1</div><span class="gstep-icon">🎫</span><h4>Getting a Bus Pass (Abbonamento)</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>Siena's urban bus network is operated by Tiemme. Students can get a monthly or annual subscription at a discounted rate.</p><ul><li>Go to the Tiemme ticket office near Piazza Gramsci</li><li>Bring your codice fiscale, student ID, and a passport photo</li><li>Monthly pass for students: approximately €20–€28 for urban lines</li><li>Single tickets (€1.50) or a pack of 10 are available at tabacchi shops</li></ul><div class="tip"><strong>Tip:</strong> If you have registered residency in Siena, you may qualify for the resident rate, which is cheaper.</div></div>
+        </div>
+        <div class="gstep" data-keywords="getting around siena map routes walks trains florence">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">2</div><span class="gstep-icon">🗺️</span><h4>Getting Around Siena</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>Siena's historic centre is largely pedestrianised. The main bus terminal is Piazza Gramsci.</p><ul><li>University campuses are connected by buses — check the Tiemme app for routes</li><li>Siena is very walkable; most things are within 15–20 minutes on foot</li><li>For Florence, Flixbus and Sena/Baltour coaches operate from Piazza Gramsci</li><li>Siena Stazione is about 2km from the centre, connected by bus</li></ul><div class="tip"><strong>Tip:</strong> Download the Moovit or Google Maps app — both work well for Siena's bus routes.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-section" id="cat-health">
+      <div class="step-list">
+        <div class="gstep" data-keywords="doctor gp medico base health asl register">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">1</div><span class="gstep-icon">👨‍⚕️</span><h4>Registering with a GP (Medico di Base)</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>To access Italy's National Health Service (SSN) for free, register with a local general practitioner.</p><ul><li>Go to the ASL Toscana Sud Est office in Siena</li><li>Bring your permesso di soggiorno, codice fiscale, and proof of address</li><li>You'll be assigned a GP in your area, or you can choose one from a list</li><li>EU citizens can use the European Health Insurance Card (EHIC) directly</li></ul><div class="tip"><strong>Tip:</strong> Registration is free and gives you access to GP visits, prescriptions, and referrals at no cost.</div></div>
+        </div>
+        <div class="gstep" data-keywords="emergency hospital pharmacy farmacia pronto soccorso">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">2</div><span class="gstep-icon">🏥</span><h4>Emergencies & Pharmacy</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>Italy has an excellent network of pharmacies and hospitals. For emergencies, you always have access to free treatment.</p><ul><li>Emergency number: <strong>118</strong> (medical), <strong>112</strong> (general emergency)</li><li>Main hospital: Policlinico Le Scotte, Viale Mario Bracci 16</li><li>Pharmacies (farmacie) display a green cross</li><li>Night pharmacies (farmacie di turno) rotate — check the list posted on any pharmacy window</li></ul><div class="tip"><strong>Tip:</strong> The university also has a medical centre (ambulatorio) for students.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-section" id="cat-banking">
+      <div class="step-list">
+        <div class="gstep" data-keywords="bank account n26 revolut mps unicredit open banking">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">1</div><span class="gstep-icon">💳</span><h4>Opening a Bank Account</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>Having an Italian bank account makes life much easier — for paying rent, utilities, and receiving scholarship payments.</p><ul><li>You'll need: passport, codice fiscale, permesso di soggiorno, and proof of address</li><li>Main banks in Siena: Monte dei Paschi di Siena (MPS), UniCredit, Intesa Sanpaolo</li><li>Alternatively, consider digital accounts like N26, Revolut, or Wise</li><li>Traditional accounts often have monthly fees (€5–€10); student accounts may be free</li></ul><div class="tip"><strong>Tip:</strong> Many students use Revolut/N26 for day-to-day spending while waiting for their permesso di soggiorno to open a traditional account.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-section" id="cat-university">
+      <div class="step-list">
+        <div class="gstep" data-keywords="enroll enrolment student id badge esse3 fees tasse">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">1</div><span class="gstep-icon">🎓</span><h4>Enrolling & Student ID</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>Whether you're at Università degli Studi di Siena or Università per Stranieri di Siena, enrolment involves a few key steps.</p><ul><li>Complete online pre-enrolment through the university's student portal (ESSE3)</li><li>Bring original documents to the segreteria studenti: passport, qualification certificates, and codice fiscale</li><li>Pay the university fees (tasse universitarie); DSU borse di studio can reduce or waive them</li><li>Collect your student card — needed for library access, discounts, and bus passes</li></ul><div class="tip"><strong>Tip:</strong> Apply for the DSU scholarship early — it can cover tuition, canteen meals, and housing.</div></div>
+        </div>
+        <div class="gstep" data-keywords="canteen mensa dsu meals food library">
+          <div class="gstep-header" onclick="toggleStep(this)"><div class="gstep-num">2</div><span class="gstep-icon">🍽️</span><h4>University Canteen & Services</h4><span class="gstep-toggle">▾</span></div>
+          <div class="gstep-body"><p>DSU Toscana manages university canteens (mense) in Siena. With the right registration, meals can be heavily subsidised.</p><ul><li>Register on the DSU Toscana portal to access subsidised meals (as low as €1–€2.60)</li><li>Main canteens: Mensa di San Miniato, Mensa di Via Bandini</li><li>Show your badge or use the DSU app at the entrance</li><li>Library access is free with your student card</li></ul><div class="tip"><strong>Tip:</strong> Even without the DSU scholarship, you can use the canteen at the standard student rate (~€5–€6 for a full meal).</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ EVENTS ══ -->
+<div class="page" id="events">
+  <div class="events-hero">
+    <div class="section-tag">Events & Activities</div>
+    <h1 class="section-title">Discover <em>Siena</em></h1>
+    <p class="section-body">From cultural festivals to student meetups — find events to connect, explore, and feel at home.</p>
+    <div class="events-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="events-search-input" placeholder="Search events…" oninput="renderEvents()" />
+    </div>
+  </div>
+  <div class="events-body">
+    <div class="filter-row">
+      <span class="filter-label">Filter:</span>
+      <button class="ftag active" onclick="filterEvents('all',this)">All</button>
+      <button class="ftag" onclick="filterEvents('cultural',this)">🎨 Cultural</button>
+      <button class="ftag" onclick="filterEvents('social',this)">🤝 Social</button>
+      <button class="ftag" onclick="filterEvents('sport',this)">⚽ Sport</button>
+      <button class="ftag" onclick="filterEvents('academic',this)">📚 Academic</button>
+    </div>
+    <div class="events-grid" id="events-grid"></div>
+    <div class="no-events" id="no-events">No events found.</div>
+  </div>
+</div>
+
+<!-- ══ COMMUNITY ══ -->
+<div class="page" id="community">
+  <div class="comm-hero">
+    <div class="section-tag">Community Forum</div>
+    <h1 class="section-title">You're not <em>alone</em></h1>
+    <p class="section-body">Ask questions, share tips, reply to others, and connect with international students in Siena.</p>
+    <div class="comm-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="comm-search-input" placeholder="Search posts…" oninput="renderPosts()" />
+    </div>
+  </div>
+  <div class="comm-body">
+    <div>
+      <div class="post-compose">
+        <div class="compose-top">
+          <div class="avatar">Y</div>
+          <textarea id="compose-text" rows="3" placeholder="Share something with the community — a tip, a question, an experience…"></textarea>
+        </div>
+        <div class="compose-bottom">
+          <div class="compose-tags" id="compose-tags">
+            <button class="ctag-btn" onclick="selectTag('Question',this)">❓ Question</button>
+            <button class="ctag-btn" onclick="selectTag('Tip',this)">💡 Tip</button>
+            <button class="ctag-btn" onclick="selectTag('Housing',this)">🏠 Housing</button>
+            <button class="ctag-btn" onclick="selectTag('Documents',this)">📄 Documents</button>
+            <button class="ctag-btn" onclick="selectTag('Social',this)">🎉 Social</button>
+          </div>
+          <button class="btn-primary" style="font-size:.8rem;padding:.55rem 1.3rem" onclick="submitPost()">Post</button>
+        </div>
+      </div>
+      <div class="post-filters">
+        <button class="pf-btn active" onclick="filterPostsBtn('all',this)">All</button>
+        <button class="pf-btn" onclick="filterPostsBtn('Question',this)">❓ Questions</button>
+        <button class="pf-btn" onclick="filterPostsBtn('Tip',this)">💡 Tips</button>
+        <button class="pf-btn" onclick="filterPostsBtn('Housing',this)">🏠 Housing</button>
+        <button class="pf-btn" onclick="filterPostsBtn('Documents',this)">📄 Documents</button>
+        <button class="pf-btn" onclick="filterPostsBtn('Social',this)">🎉 Social</button>
+      </div>
+      <div id="no-posts" class="no-posts">No posts found.</div>
+      <div class="posts-list" id="posts-list"></div>
+    </div>
+    <div class="comm-sidebar">
+      <div class="sidebar-card">
+        <h4>Browse Topics</h4>
+        <div class="tag-cloud">
+          <button class="tag-chip" onclick="filterPostsBtn('Question',null)">Questions</button>
+          <button class="tag-chip" onclick="filterPostsBtn('Housing',null)">Housing</button>
+          <button class="tag-chip" onclick="filterPostsBtn('Documents',null)">Documents</button>
+          <button class="tag-chip" onclick="filterPostsBtn('Tip',null)">Tips</button>
+          <button class="tag-chip" onclick="filterPostsBtn('Social',null)">Social</button>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <h4>Recent Members</h4>
+        <div class="member-list">
+          <div class="member"><div class="avatar" style="background:#6B8F71">A</div><div class="member-info"><div class="name">Amara K.</div><div class="country">🇬🇭 Ghana · 2 days ago</div></div></div>
+          <div class="member"><div class="avatar" style="background:#7B6EA6">L</div><div class="member-info"><div class="name">Léa M.</div><div class="country">🇫🇷 France · 4 days ago</div></div></div>
+          <div class="member"><div class="avatar" style="background:#C4623A">R</div><div class="member-info"><div class="name">Riya S.</div><div class="country">🇮🇳 India · 1 week ago</div></div></div>
+          <div class="member"><div class="avatar" style="background:#5B8DB8">K</div><div class="member-info"><div class="name">Kaito T.</div><div class="country">🇯🇵 Japan · 1 week ago</div></div></div>
+          <div class="member"><div class="avatar" style="background:#8B6A4A">F</div><div class="member-info"><div class="name">Fatima B.</div><div class="country">🇲🇦 Morocco · 2 weeks ago</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="page" id="about">
+  <div class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-inner fade-in">
+      <div class="section-tag">About Us</div>
+      <h1 class="section-title">Born from <em>experience</em></h1>
+      <p class="section-body">Siena Connect was created by three international students who lived through the challenges of arriving in a new country and wanted to make it easier for those who come after them.</p>
+    </div>
+  </div>
+  <div class="story">
+    <div class="story-text reveal">
+      <div class="section-tag">Our Story</div>
+      <h2 class="section-title">We were <em>those students</em></h2>
+      <p>When we arrived in Siena, we each faced the same overwhelming experience: a new country, a new language, and a pile of bureaucratic tasks with no clear guide. We searched across dozens of websites, asked older students, made mistakes, and slowly found our way.</p>
+      <p>After going through this ourselves, we asked: why should every new student start from scratch? The information exists. The community is there. It just needs a place to come together.</p>
+      <p>Siena Connect is our answer — built with the support of the university, local institutions, and student organisations.</p>
+    </div>
+    <div class="reveal" style="transition-delay:.15s">
+      <div class="story-card">
+        <h3>Where we come from</h3>
+        <div class="origin-item"><span class="flag">🇮🇳</span><div><strong>India</strong><br><span style="font-size:.8rem;color:var(--muted)">Satish Chand Gupta · University of Siena</span></div></div>
+        <div class="origin-item"><span class="flag">🇹🇳</span><div><strong>Tunisia</strong><br><span style="font-size:.8rem;color:var(--muted)">Khaled Mzid · University of Siena</span></div></div>
+        <div class="origin-item"><span class="flag">🇲🇳</span><div><strong>Mongolia</strong><br><span style="font-size:.8rem;color:var(--muted)">Misheel Munkh-Erdene · University of Siena</span></div></div>
+        <div style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(196,98,58,.1);font-size:.82rem;color:var(--muted);line-height:1.6">Three continents, two universities, one shared experience — arriving in Siena as strangers and making it home.</div>
+      </div>
+    </div>
+  </div>
+  <div class="team-section">
+    <div class="team-inner">
+      <div class="section-tag">The Team</div>
+      <h2 class="section-title">Three students,<br><em>one idea</em></h2>
+      <p class="section-body">We are international students at Siena's universities. Our diversity is our strength.</p>
+      <div class="team-grid">
+        <div class="team-card reveal"><div class="team-flag">🇮🇳</div><div class="team-avatar">S</div><h3>Satish Chand Gupta</h3><div class="role">Co-founder · Product & Research</div><p>Student from India. Arrived in Siena and spent his first weeks navigating bureaucracy alone. Now dedicated to making sure no one else has to.</p></div>
+        <div class="team-card reveal" style="transition-delay:.1s"><div class="team-flag">🇹🇳</div><div class="team-avatar" style="background:#6B8F71">K</div><h3>Khaled Mzid</h3><div class="role">Co-founder · Community & Content</div><p>Student from Tunisia. Passionate about building bridges between cultures and making Siena feel like a second home for everyone.</p></div>
+        <div class="team-card reveal" style="transition-delay:.2s"><div class="team-flag">🇲🇳</div><div class="team-avatar" style="background:#5B8DB8">M</div><h3>Misheel Munkh-Erdene</h3><div class="role">Co-founder · Technology & Design</div><p>Student from Mongolia. Built this platform to give back to the international student community that supported her during the most challenging first months.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="values-section">
+    <div class="reveal"><div class="section-tag">Our Values</div><h2 class="section-title">What guides us</h2></div>
+    <div class="values-grid">
+      <div class="val-card reveal"><div class="vi">🌍</div><h4>Inclusivity</h4><p>Siena Connect is for every student, regardless of where you come from, what you study, or how long you're staying.</p></div>
+      <div class="val-card reveal" style="transition-delay:.1s"><div class="vi">✅</div><h4>Reliability</h4><p>We work with universities and local institutions to ensure our information is accurate, up to date, and genuinely useful.</p></div>
+      <div class="val-card reveal" style="transition-delay:.2s"><div class="vi">🤝</div><h4>Community First</h4><p>This platform exists because of students, for students. We listen, we update, and we grow together.</p></div>
+    </div>
+  </div>
+  <div class="cta-section">
+    <h2>Don't just study in Siena.<br>Become part of it.</h2>
+    <p>Join the platform and connect with thousands of international students who have found their community here.</p>
+    <button class="btn-white" onclick="go('community')">Join the Community</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo" onclick="go('home')">Siena Connect</span>
+  <ul class="footer-nav">
+    <li><a onclick="go('guide')">Student Guide</a></li>
+    <li><a onclick="go('events')">Events</a></li>
+    <li><a onclick="go('community')">Community</a></li>
+    <li><a onclick="go('about')">About Us</a></li>
+  </ul>
+  <span class="footer-copy">A student project born from lived experience. Siena, Italy.</span>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
