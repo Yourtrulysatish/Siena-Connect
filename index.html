@@ -67,33 +67,51 @@
       <h2>Join Siena Connect</h2>
       <p>Free for all international students. Takes 30 seconds.</p>
       <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" placeholder="Maria" /></div>
-        <div class="form-group"><label>Last Name</label><input type="text" placeholder="González" /></div>
+        <div class="form-group"><label>First Name</label><input id="sig-first" type="text" placeholder="Maria" /><span class="form-error"></span></div>
+        <div class="form-group"><label>Last Name</label><input id="sig-last" type="text" placeholder="González" /><span class="form-error"></span></div>
       </div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="you@university.com" /></div>
+      <div class="form-group"><label>Email</label><input id="sig-email" type="email" placeholder="you@university.com" /><span class="form-error"></span></div>
       <div class="form-row">
         <div class="form-group"><label>Nationality</label>
-          <select>
+          <select id="sig-nationality">
             <option value="">Select country…</option>
-            <option>🇮🇳 India</option><option>🇨🇳 China</option><option>🇹🇳 Tunisia</option>
-            <option>🇲🇳 Mongolia</option><option>🇫🇷 France</option><option>🇩🇪 Germany</option>
-            <option>🇪🇸 Spain</option><option>🇧🇷 Brazil</option><option>🇳🇬 Nigeria</option>
-            <option>🇯🇵 Japan</option><option>🇲🇦 Morocco</option><option>Other</option>
+            <optgroup label="Non-EU">
+              <option>🇮🇳 India</option><option>🇨🇳 China</option><option>🇹🇳 Tunisia</option>
+              <option>🇲🇳 Mongolia</option><option>🇧🇷 Brazil</option><option>🇳🇬 Nigeria</option>
+              <option>🇯🇵 Japan</option><option>🇲🇦 Morocco</option><option>🇵🇰 Pakistan</option>
+              <option>🇧🇩 Bangladesh</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option>
+              <option>🇦🇺 Australia</option><option>🇹🇷 Turkey</option><option>🇪🇬 Egypt</option>
+              <option>🇰🇷 South Korea</option><option>🇷🇺 Russia</option><option>🇺🇦 Ukraine</option>
+            </optgroup>
+            <optgroup label="EU / EEA">
+              <option>France</option><option>Germany</option><option>Spain</option>
+              <option>Austria</option><option>Belgium</option><option>Bulgaria</option>
+              <option>Croatia</option><option>Czech Republic</option><option>Denmark</option>
+              <option>Estonia</option><option>Finland</option><option>Greece</option>
+              <option>Hungary</option><option>Ireland</option><option>Latvia</option>
+              <option>Lithuania</option><option>Luxembourg</option><option>Malta</option>
+              <option>Netherlands</option><option>Poland</option><option>Portugal</option>
+              <option>Romania</option><option>Slovakia</option><option>Slovenia</option>
+              <option>Sweden</option><option>Norway</option><option>Iceland</option>
+            </optgroup>
+            <option value="Other">Other</option>
           </select>
+          <span class="form-error"></span>
         </div>
         <div class="form-group"><label>University</label>
-          <select>
+          <select id="sig-university">
             <option value="">Select…</option>
             <option>Università di Siena</option>
             <option>Università per Stranieri di Siena</option>
             <option>Other / Erasmus</option>
           </select>
+          <span class="form-error"></span>
         </div>
       </div>
       <div class="form-group"><label>Arrival Month</label>
-        <select>
+        <select id="sig-arrival">
           <option>Already here</option>
-          <option>April 2026</option><option>May 2026</option><option>June 2026</option>
+          <option>May 2026</option><option>June 2026</option>
           <option>September 2026</option><option>October 2026</option><option>January 2027</option>
         </select>
       </div>
@@ -134,8 +152,8 @@
           <p>Step-by-step tasks personalised to your nationality and arrival date.</p>
           <div class="hv-steps">
             <div class="hv-step done"><div class="hv-check">✓</div> Codice Fiscale obtained</div>
-            <div class="hv-step done"><div class="hv-check">✓</div> Kit Postale submitted</div>
-            <div class="hv-step"><div class="hv-check"></div> Questura appointment</div>
+            <div class="hv-step done non-eu-only"><div class="hv-check">✓</div> Kit Postale submitted</div>
+            <div class="hv-step non-eu-only"><div class="hv-check"></div> Questura appointment</div>
             <div class="hv-step"><div class="hv-check"></div> Register with GP</div>
             <div class="hv-step"><div class="hv-check"></div> Bus pass activated</div>
           </div>
@@ -149,7 +167,7 @@
   <div class="stats-bar">
     <div class="stat-item"><div class="n">4,000+</div><div class="l">Students per year</div></div>
     <div class="stat-item"><div class="n">28+</div><div class="l">Nationalities</div></div>
-    <div class="stat-item"><div class="n">6</div><div class="l">Guide categories</div></div>
+    <div class="stat-item"><div class="n">7</div><div class="l">Guide categories</div></div>
     <div class="stat-item"><div class="n">Free</div><div class="l">Always for students</div></div>
   </div>
 
@@ -176,7 +194,7 @@
       <div class="fcard" onclick="go('guide')"><div class="fi">🗺️</div><h3>Step-by-Step Guide</h3><p>Clear instructions for every administrative task you'll face in Siena, written by someone who did them.</p><span class="learn">Browse guide →</span></div>
       <div class="fcard" onclick="go('events')"><div class="fi">🎭</div><h3>Events & Activities</h3><p>Discover cultural events, student meetups, and weekend trips happening in and around Siena.</p><span class="learn">See events →</span></div>
       <div class="fcard" onclick="go('community')"><div class="fi">💬</div><h3>Community Forum</h3><p>Ask questions, share tips, and get answers from students who have been through the same experience.</p><span class="learn">Join the conversation →</span></div>
-      <div class="fcard" onclick="go('guide')"><div class="fi">🏠</div><h3>Housing Board</h3><p>Rooms posted by students leaving Siena — no agencies, no fees, peer-to-peer.</p><span class="learn">Find a room →</span></div>
+      <div class="fcard" onclick="go('guide'); setTimeout(()=>switchCat('housing-board',null),150)"><div class="fi">🏠</div><h3>Housing Board</h3><p>Rooms posted by students leaving Siena — no agencies, no fees, peer-to-peer.</p><span class="learn">Find a room →</span></div>
       <div class="fcard" onclick="go('about')"><div class="fi">🌍</div><h3>28+ Nationalities</h3><p>A growing community of international students from across the world, all navigating Siena together.</p><span class="learn">Meet the community →</span></div>
     </div>
   </div>
@@ -226,19 +244,21 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input placeholder="Search guide topics…" oninput="searchGuide(this.value)" />
     </div>
+    <div id="guide-user-banner" class="guide-user-banner" style="display:none"></div>
     <div class="progress-bar-wrap">
-      <div class="pb-label"><span>Your progress</span><strong id="progress-text">0 of 14 tasks completed</strong></div>
+      <div class="pb-label"><span>Your progress</span><strong id="progress-text">0 of 12 tasks completed</strong></div>
       <div class="pb-track"><div class="pb-fill" id="pb-fill"></div></div>
     </div>
   </div>
   <div class="guide-body">
     <div class="cat-tabs" id="cat-tabs">
-      <button class="cat-tab active" onclick="switchCat('documents',this)">📄 Documents</button>
-      <button class="cat-tab" onclick="switchCat('housing',this)">🏠 Housing</button>
-      <button class="cat-tab" onclick="switchCat('transport',this)">🚌 Transport</button>
-      <button class="cat-tab" onclick="switchCat('health',this)">🏥 Health</button>
-      <button class="cat-tab" onclick="switchCat('banking',this)">🏦 Banking</button>
-      <button class="cat-tab" onclick="switchCat('university',this)">🎓 University</button>
+      <button class="cat-tab active" data-cat="documents"     onclick="switchCat('documents',this)">📄 Documents</button>
+      <button class="cat-tab"        data-cat="housing"       onclick="switchCat('housing',this)">🏠 Housing</button>
+      <button class="cat-tab"        data-cat="transport"     onclick="switchCat('transport',this)">🚌 Transport</button>
+      <button class="cat-tab"        data-cat="health"        onclick="switchCat('health',this)">🏥 Health</button>
+      <button class="cat-tab"        data-cat="banking"       onclick="switchCat('banking',this)">🏦 Banking</button>
+      <button class="cat-tab"        data-cat="university"    onclick="switchCat('university',this)">🎓 University</button>
+      <button class="cat-tab"        data-cat="housing-board" onclick="switchCat('housing-board',this)">🔑 Housing Board</button>
     </div>
     <div id="guide-no-results" class="no-results">No results found. Try a different term.</div>
 
@@ -249,14 +269,14 @@
             <div class="gstep-check" onclick="markDone(event,this)"></div>
             <span class="gstep-icon">🔢</span><h4>Codice Fiscale (Tax Code)</h4><span class="gstep-toggle">▾</span>
           </div>
-          <div class="gstep-body"><p>A 16-character code used in all dealings with Italian public administration. Needed for a bank account, rental contract, university registration, and almost everything else.</p><ul><li>Go to Agenzia delle Entrate, Via Massetana Romana — bring your passport</li><li>Fill in Modello AA4/8 (available at the office)</li><li>Issued on the spot, for free</li><li>Can also be obtained at the Italian consulate before you arrive</li></ul><div class="tip"><strong>Tip:</strong> Get this on your first or second day. Almost everything else depends on it.</div></div>
+          <div class="gstep-body"><p>A 16-character code used in all dealings with Italian public administration. Needed for a bank account, rental contract, university registration, and almost everything else.</p><ul><li>Go to <a href="https://www.agenziaentrate.gov.it" target="_blank" rel="noopener">Agenzia delle Entrate</a>, Via Massetana Romana — bring your passport</li><li>Fill in Modello AA4/8 (available at the office)</li><li>Issued on the spot, for free</li><li>Can also be obtained at the Italian consulate before you arrive</li></ul><div class="tip"><strong>Tip:</strong> Get this on your first or second day. Almost everything else depends on it.</div></div>
         </div>
-        <div class="gstep" data-keywords="permesso soggiorno residence permit questura poste">
+        <div class="gstep non-eu-only" data-keywords="permesso soggiorno residence permit questura poste">
           <div class="gstep-header" onclick="toggleStep(this)">
             <div class="gstep-check" onclick="markDone(event,this)"></div>
-            <span class="gstep-icon">📋</span><h4>Permesso di Soggiorno</h4><span class="gstep-toggle">▾</span>
+            <span class="gstep-icon">📋</span><h4>Permesso di Soggiorno <span class="step-badge non-eu-badge">Non-EU</span></h4><span class="gstep-toggle">▾</span>
           </div>
-          <div class="gstep-body"><p>Non-EU students must apply within 8 working days of arriving in Italy.</p><ul><li>Get a Kit Postale from any Poste Italiane branch — it's free</li><li>Fill in the forms carefully (the International Office runs workshops)</li><li>Submit at the post office Sportello Amico — fee around €30</li><li>Keep the receipt — it's your temporary permit</li><li>Attend fingerprinting appointment at the Questura when called</li></ul><div class="tip"><strong>Tip:</strong> Timeline is typically 6–10 weeks. This is normal. Do not panic.</div></div>
+          <div class="gstep-body"><p>Non-EU students must apply within 8 working days of arriving in Italy.</p><ul><li>Get a Kit Postale from any <a href="https://www.poste.it" target="_blank" rel="noopener">Poste Italiane</a> branch — it's free</li><li>Fill in the forms carefully (the International Office runs workshops)</li><li>Submit at the post office Sportello Amico — fee around €30</li><li>Keep the receipt — it's your temporary permit while waiting</li><li>Attend fingerprinting appointment at the <a href="https://questure.poliziadistato.it/Siena" target="_blank" rel="noopener">Questura di Siena</a> when called</li></ul><div class="tip"><strong>Tip:</strong> Timeline is typically 6–10 weeks. This is normal. Do not panic.</div></div>
         </div>
         <div class="gstep" data-keywords="residency comune registration anagrafe">
           <div class="gstep-header" onclick="toggleStep(this)">
@@ -275,7 +295,7 @@
             <div class="gstep-check" onclick="markDone(event,this)"></div>
             <span class="gstep-icon">🔍</span><h4>Finding Accommodation</h4><span class="gstep-toggle">▾</span>
           </div>
-          <div class="gstep-body"><p>Start looking as early as possible — Siena fills up fast before semester starts.</p><ul><li>DSU Toscana residences: subsidised, apply early at dsu.toscana.it</li><li>Private rooms: Idealista, Immobiliare.it, local Facebook groups</li><li>Average: €300–550/month for a room, €600–900 for a studio</li><li>Always verify the landlord's identity and inspect before paying any deposit</li></ul><div class="tip"><strong>Tip:</strong> Check the Siena Connect Housing Board — rooms posted by students leaving Siena, no agency fees.</div></div>
+          <div class="gstep-body"><p>Start looking as early as possible — Siena fills up fast before semester starts.</p><ul><li><a href="https://www.dsu.toscana.it" target="_blank" rel="noopener">DSU Toscana</a> residences: subsidised, apply early</li><li>Private rooms: <a href="https://www.idealista.it/affitto/siena-provincia/" target="_blank" rel="noopener">Idealista</a>, <a href="https://www.immobiliare.it/affitto/siena/" target="_blank" rel="noopener">Immobiliare.it</a>, local Facebook groups</li><li>Average: €300–550/month for a room, €600–900 for a studio</li><li>Always verify the landlord's identity and inspect before paying any deposit</li></ul><div class="tip"><strong>Tip:</strong> Check the Siena Connect Housing Board — rooms posted by students leaving Siena, no agency fees.</div></div>
         </div>
         <div class="gstep" data-keywords="contract rental lease deposit cauzione">
           <div class="gstep-header" onclick="toggleStep(this)">
@@ -294,7 +314,7 @@
             <div class="gstep-check" onclick="markDone(event,this)"></div>
             <span class="gstep-icon">🎫</span><h4>Getting a Bus Pass</h4><span class="gstep-toggle">▾</span>
           </div>
-          <div class="gstep-body"><p>Siena's buses are operated by Tiemme. Monthly student passes are available at a discount.</p><ul><li>Tiemme office near Piazza Gramsci — bring codice fiscale, student ID, and a photo</li><li>Monthly student pass: approximately €20–28 for urban lines</li><li>Single tickets (€1.50) at any tabacchi shop</li></ul><div class="tip"><strong>Tip:</strong> With registered residency you may qualify for the cheaper resident rate.</div></div>
+          <div class="gstep-body"><p>Siena's buses are operated by <a href="https://www.tiemmespa.it" target="_blank" rel="noopener">Tiemme</a>. Monthly student passes are available at a discount.</p><ul><li>Tiemme office near Piazza Gramsci — bring codice fiscale, student ID, and a photo</li><li>Monthly student pass: approximately €20–28 for urban lines</li><li>Single tickets (€1.50) at any tabacchi shop</li></ul><div class="tip"><strong>Tip:</strong> With registered residency you may qualify for the cheaper resident rate.</div></div>
         </div>
         <div class="gstep" data-keywords="getting around siena routes walks trains florence">
           <div class="gstep-header" onclick="toggleStep(this)">
@@ -313,7 +333,7 @@
             <div class="gstep-check" onclick="markDone(event,this)"></div>
             <span class="gstep-icon">👨‍⚕️</span><h4>Registering with a GP</h4><span class="gstep-toggle">▾</span>
           </div>
-          <div class="gstep-body"><p>Register with a local general practitioner to access Italy's National Health Service (SSN) for free.</p><ul><li>ASL Toscana Sud Est office in Siena</li><li>Bring permesso di soggiorno, codice fiscale, and proof of address</li><li>EU students: use your European Health Insurance Card (EHIC) directly</li></ul><div class="tip"><strong>Tip:</strong> Free to register. Gives you GP visits, prescriptions, and referrals at no cost.</div></div>
+          <div class="gstep-body"><p>Register with a local general practitioner to access Italy's National Health Service (SSN) for free.</p><ul><li><a href="https://www.uslsudest.toscana.it" target="_blank" rel="noopener">ASL Toscana Sud Est</a> office in Siena</li><li class="non-eu-only">Bring permesso di soggiorno, codice fiscale, and proof of address</li><li class="eu-only" style="display:none">EU students: your <strong>EHIC card</strong> covers emergency care immediately. Register with ASL for routine GP access.</li></ul><div class="tip"><strong>Tip:</strong> Free to register. Gives you GP visits, prescriptions, and referrals at no cost.</div></div>
         </div>
         <div class="gstep" data-keywords="emergency hospital pharmacy farmacia pronto soccorso">
           <div class="gstep-header" onclick="toggleStep(this)">
@@ -337,6 +357,17 @@
       </div>
     </div>
 
+    <div class="guide-section" id="cat-housing-board">
+      <div class="hb-header">
+        <div>
+          <h3>Housing Board</h3>
+          <p>Rooms posted directly by students leaving Siena — no agencies, no fees.</p>
+        </div>
+        <button class="btn-primary" style="font-size:.8rem;padding:.6rem 1.3rem" onclick="openSignup()">Post a room →</button>
+      </div>
+      <div class="hb-grid" id="housing-board-grid"></div>
+    </div>
+
     <div class="guide-section" id="cat-university">
       <div class="step-list">
         <div class="gstep" data-keywords="enroll student id badge esse3 fees tasse">
@@ -344,14 +375,14 @@
             <div class="gstep-check" onclick="markDone(event,this)"></div>
             <span class="gstep-icon">🎓</span><h4>Enrolling & Student ID</h4><span class="gstep-toggle">▾</span>
           </div>
-          <div class="gstep-body"><ul><li>Complete online pre-enrolment through ESSE3 (student portal)</li><li>Bring originals to the segreteria: passport, qualifications, codice fiscale</li><li>Pay tasse universitarie — apply for DSU scholarship to reduce or waive them</li><li>Collect your student card — needed for library, canteen, discounts, bus pass</li></ul><div class="tip"><strong>Tip:</strong> Apply for the DSU scholarship early — it can cover tuition, meals, and housing.</div></div>
+          <div class="gstep-body"><ul><li>Complete online pre-enrolment through <a href="https://esse3.unisi.it" target="_blank" rel="noopener">ESSE3 (student portal)</a></li><li>Bring originals to the segreteria: passport, qualifications, codice fiscale</li><li>Pay tasse universitarie — apply for DSU scholarship to reduce or waive them</li><li>Collect your student card — needed for library, canteen, discounts, bus pass</li></ul><div class="tip"><strong>Tip:</strong> Apply for the DSU scholarship early — it can cover tuition, meals, and housing.</div></div>
         </div>
         <div class="gstep" data-keywords="canteen mensa dsu meals food library">
           <div class="gstep-header" onclick="toggleStep(this)">
             <div class="gstep-check" onclick="markDone(event,this)"></div>
             <span class="gstep-icon">🍽️</span><h4>University Canteen & Services</h4><span class="gstep-toggle">▾</span>
           </div>
-          <div class="gstep-body"><ul><li>Register on DSU Toscana portal for subsidised meals (€1–2.60)</li><li>Main canteens: Mensa di San Miniato, Mensa di Via Bandini</li><li>Show badge or DSU app at entrance</li><li>Library access free with student card</li></ul></div>
+          <div class="gstep-body"><ul><li>Register on <a href="https://www.dsu.toscana.it" target="_blank" rel="noopener">DSU Toscana portal</a> for subsidised meals (€1–2.60)</li><li>Main canteens: Mensa di San Miniato, Mensa di Via Bandini</li><li>Show badge or DSU app at entrance</li><li>Library access free with student card</li></ul></div>
         </div>
       </div>
     </div>
@@ -500,6 +531,49 @@
       <div class="val-card reveal" style="transition-delay:.2s"><div class="vi">🤝</div><h4>Community First</h4><p>This platform exists because of students, for students. We listen, we update, and we grow together.</p></div>
     </div>
   </div>
+  <!-- ── Partner with us ── -->
+  <div class="partner-section" id="partner-section">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag">Work With Us</div>
+      <h2 class="section-title">Partner with <em>Siena Connect</em></h2>
+      <p class="section-body" style="max-width:540px;margin:.6rem auto 0">Reach 4,000+ international students arriving in Siena every year — at the exact moment they need your service.</p>
+    </div>
+    <div class="partner-grid reveal" style="transition-delay:.1s">
+      <div class="partner-card"><div class="pc-icon">🏫</div><h4>Language Schools</h4><p>Get in front of students actively looking for Italian lessons before and after they arrive.</p></div>
+      <div class="partner-card"><div class="pc-icon">🏠</div><h4>Accommodation</h4><p>Agencies and landlords — reach students who are searching for housing in Siena right now.</p></div>
+      <div class="partner-card"><div class="pc-icon">🍝</div><h4>Local Businesses</h4><p>Restaurants, shops, and services — get discovered by a growing international community.</p></div>
+      <div class="partner-card"><div class="pc-icon">🎓</div><h4>Universities & Offices</h4><p>Share announcements, events, and services with the international student community.</p></div>
+    </div>
+    <div class="partner-cta reveal" style="transition-delay:.2s">
+      <div class="partner-perks">
+        <h4>What partners get</h4>
+        <div class="perk-item"><span class="perk-icon">✓</span> Featured listing in the Student Guide</div>
+        <div class="perk-item"><span class="perk-icon">✓</span> Event sponsorship opportunities</div>
+        <div class="perk-item"><span class="perk-icon">✓</span> Monthly newsletter mention</div>
+        <div class="perk-item"><span class="perk-icon">✓</span> Verified badge in the Community</div>
+        <div class="perk-item"><span class="perk-icon">✓</span> Access to arrival season audience</div>
+      </div>
+      <div class="partner-contact">
+        <h4>Get in touch</h4>
+        <p>Tell us about your business and we'll send over a partnership kit within 48 hours.</p>
+        <div class="pc-form">
+          <input id="partner-name" type="text" placeholder="Your name or business" />
+          <input id="partner-email" type="email" placeholder="Email address" />
+          <select id="partner-type">
+            <option value="">Type of business…</option>
+            <option>Language school</option>
+            <option>Accommodation / Real estate</option>
+            <option>Restaurant / Café</option>
+            <option>Tour / Experience</option>
+            <option>University / Academic office</option>
+            <option>Other</option>
+          </select>
+          <button onclick="submitPartnerInquiry()">Send enquiry →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="cta-section">
     <h2>Don't just study in Siena.<br>Become part of it.</h2>
     <p>Join the community and connect with international students who found their footing here.</p>
@@ -537,8 +611,8 @@
       <ul>
         <li><a onclick="go('about')">Our story</a></li>
         <li><a onclick="go('about')">The team</a></li>
-        <li><a onclick="showToast('Partner page coming soon!')">Partner with us</a></li>
-        <li><a onclick="showToast('Contact form coming soon!')">Contact</a></li>
+        <li><a onclick="go('about');setTimeout(()=>document.getElementById('partner-section').scrollIntoView({behavior:'smooth'}),220)">Partner with us</a></li>
+        <li><a href="mailto:hello@sienaconnect.com">Contact us</a></li>
       </ul>
     </div>
   </div>
@@ -552,6 +626,7 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
