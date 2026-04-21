@@ -212,9 +212,13 @@ async function submitSignup() {
       first_name: firstName, last_name: lastName, email,
       nationality, university, arrival_month: arrival, is_eu: isEU
     });
-    if (error && error.code !== '23505') { // 23505 = duplicate email
+    if (error) {
       btn.textContent = 'Create my free account →'; btn.disabled = false;
-      showToast('Something went wrong — please try again');
+      if (error.code === '23505') {
+        fieldError(document.getElementById('sig-email'), 'This email is already registered');
+      } else {
+        showToast('Something went wrong — please try again');
+      }
       return;
     }
   }

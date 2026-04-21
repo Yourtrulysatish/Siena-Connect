@@ -4,6 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Siena Connect — Home for International Students in Siena</title>
+
+<!-- SEO -->
+<meta name="description" content="Free guide for international students arriving in Siena, Italy. Documents, housing, events, and a real student community — everything you need to settle in, in one place.">
+<meta name="keywords" content="Siena international students, codice fiscale, permesso di soggiorno, student housing Siena, Siena Connect, Università di Siena, Stranieri Siena">
+<meta name="author" content="Satish Chand Gupta">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sienaconnect.com">
+
+<!-- Open Graph (Facebook, LinkedIn, WhatsApp previews) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sienaconnect.com">
+<meta property="og:title" content="Siena Connect — Home for International Students in Siena">
+<meta property="og:description" content="Free guide for international students in Siena, Italy. Documents, housing, events, and a student community — all in one place.">
+<meta property="og:image" content="https://sienaconnect.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Siena Connect">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Siena Connect — Home for International Students in Siena">
+<meta name="twitter:description" content="Free guide for international students in Siena, Italy. Documents, housing, events, and a student community — all in one place.">
+<meta name="twitter:image" content="https://sienaconnect.com/og-image.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico">
+
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -617,7 +644,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Siena Connect · Founded by Satish Chand Gupta · Siena, Italy</span>
+    <span class="footer-copy">© 2026 Siena Connect · Founded by Satish Chand Gupta · Siena, Italy &nbsp;·&nbsp; <a onclick="openPrivacy()" style="color:#8A7A66;cursor:pointer;text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a onclick="openTerms()" style="color:#8A7A66;cursor:pointer;text-decoration:underline">Terms</a></span>
     <div class="footer-social">
       <a onclick="showToast('Instagram coming soon!')" title="Instagram">📸</a>
       <a onclick="showToast('WhatsApp group coming soon!')" title="WhatsApp">💬</a>
@@ -626,7 +653,57 @@
   </div>
 </footer>
 
+<!-- PRIVACY POLICY MODAL -->
+<div id="privacy-modal" onclick="if(event.target.id==='privacy-modal')closePrivacy()" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(26,18,8,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;overflow-y:auto">
+  <div style="background:var(--white);border-radius:24px;width:min(620px,95vw);padding:2.5rem;position:relative;box-shadow:0 24px 64px rgba(26,18,8,.2);max-height:85vh;overflow-y:auto;margin:auto">
+    <button onclick="closePrivacy()" style="position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;font-size:1.3rem;color:var(--muted);cursor:pointer">✕</button>
+    <div style="font-family:'Georgia',serif;font-size:1.6rem;font-weight:400;color:var(--dark);margin-bottom:.4rem">Privacy Policy</div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:1.8rem">Last updated: April 2026</div>
+    <div style="font-size:.88rem;color:var(--muted);line-height:1.8;display:flex;flex-direction:column;gap:1.2rem">
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Who we are</strong>Siena Connect is operated by Satish Chand Gupta, based in Siena, Italy. Contact: <a href="mailto:hello@sienaconnect.com" style="color:var(--terra)">hello@sienaconnect.com</a></div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">What data we collect</strong>When you create an account we collect your first name, last name, email address, nationality, university, and arrival month. When you submit a partner enquiry we collect your name, email, and business type. Community posts you write are stored publicly.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Why we collect it</strong>Your sign-up data is used solely to personalise your student guide and deliver the service. Partner enquiry data is used to respond to your request. We do not sell your data to third parties.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Legal basis (GDPR)</strong>Processing is based on your consent, given when you submit the sign-up form. You may withdraw consent at any time by contacting us.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Third-party services</strong>We use <strong>Supabase</strong> (supabase.com) to store data securely on servers within the EU. No other third-party data processors receive your personal data.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Cookies &amp; local storage</strong>We do not use tracking cookies. Your profile and guide progress are stored in your browser's local storage only and are not transmitted to our servers.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Your rights</strong>Under GDPR you have the right to access, correct, or delete your personal data at any time. To exercise any of these rights, email us at <a href="mailto:hello@sienaconnect.com" style="color:var(--terra)">hello@sienaconnect.com</a> and we will respond within 30 days.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Data retention</strong>We retain your data for as long as Siena Connect is active or until you request deletion.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Contact</strong>For any privacy questions: <a href="mailto:hello@sienaconnect.com" style="color:var(--terra)">hello@sienaconnect.com</a></div>
+    </div>
+    <button onclick="closePrivacy()" style="margin-top:2rem;background:var(--terra);color:var(--cream);border:none;border-radius:100px;padding:.7rem 2rem;font-size:.88rem;font-weight:500;cursor:pointer;font-family:inherit">Close</button>
+  </div>
+</div>
+
+<!-- TERMS OF SERVICE MODAL -->
+<div id="terms-modal" onclick="if(event.target.id==='terms-modal')closeTerms()" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(26,18,8,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;overflow-y:auto">
+  <div style="background:var(--white);border-radius:24px;width:min(620px,95vw);padding:2.5rem;position:relative;box-shadow:0 24px 64px rgba(26,18,8,.2);max-height:85vh;overflow-y:auto;margin:auto">
+    <button onclick="closeTerms()" style="position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;font-size:1.3rem;color:var(--muted);cursor:pointer">✕</button>
+    <div style="font-family:'Georgia',serif;font-size:1.6rem;font-weight:400;color:var(--dark);margin-bottom:.4rem">Terms of Service</div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:1.8rem">Last updated: April 2026</div>
+    <div style="font-size:.88rem;color:var(--muted);line-height:1.8;display:flex;flex-direction:column;gap:1.2rem">
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Acceptance</strong>By using Siena Connect you agree to these terms. If you do not agree, please do not use the service.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">What Siena Connect is</strong>Siena Connect is a free informational platform for international students in Siena, Italy. It provides guides, a community forum, event listings, and a housing board. The service is provided as-is and is free to use.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Accuracy of information</strong>We strive to keep the guide accurate and up to date, but Italian administrative rules change frequently. Always verify important details with the relevant official office before acting. Siena Connect accepts no liability for decisions made based on content on this platform.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">User-generated content</strong>When you post in the community forum or housing board, you are responsible for the content you submit. You must not post illegal, offensive, misleading, or spam content. We reserve the right to remove any content that violates these terms.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Housing listings</strong>Housing listings are posted by students and are not verified by Siena Connect. Always meet landlords in person, inspect property before paying any deposit, and use official registered contracts. Siena Connect is not responsible for any housing transactions.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Intellectual property</strong>All original content on Siena Connect (guides, design, text) is owned by Siena Connect. User-generated posts remain the property of the user who submitted them.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Limitation of liability</strong>Siena Connect is provided free of charge. To the maximum extent permitted by law, we are not liable for any damages arising from your use of this platform.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Changes to these terms</strong>We may update these terms at any time. Continued use of the platform after changes constitutes acceptance of the updated terms.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Governing law</strong>These terms are governed by Italian law. Any disputes shall be subject to the jurisdiction of the courts of Siena, Italy.</div>
+      <div><strong style="color:var(--dark);display:block;margin-bottom:.3rem">Contact</strong><a href="mailto:hello@sienaconnect.com" style="color:var(--terra)">hello@sienaconnect.com</a></div>
+    </div>
+    <button onclick="closeTerms()" style="margin-top:2rem;background:var(--terra);color:var(--cream);border:none;border-radius:100px;padding:.7rem 2rem;font-size:.88rem;font-weight:500;cursor:pointer;font-family:inherit">Close</button>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 <script src="main.js"></script>
+<script>
+  function openPrivacy() { const m = document.getElementById('privacy-modal'); m.style.display = 'flex'; }
+  function closePrivacy() { document.getElementById('privacy-modal').style.display = 'none'; }
+  function openTerms()   { const m = document.getElementById('terms-modal');   m.style.display = 'flex'; }
+  function closeTerms()  { document.getElementById('terms-modal').style.display = 'none'; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePrivacy(); closeTerms(); } });
+</script>
 </body>
 </html>
