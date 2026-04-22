@@ -7,6 +7,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
 nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(250,246,239,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(196,98,58,.12)}
 .nav-logo{display:flex;align-items:center;gap:.5rem;font-family:'Georgia',serif;font-size:1.35rem;font-weight:700;color:var(--terra);cursor:pointer;text-decoration:none}
 .nav-logo-icon{width:2rem;height:2rem;background:var(--terra);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.nav-logo-img{width:2.4rem;height:2.4rem;object-fit:contain;flex-shrink:0}
 .nav-links{display:flex;gap:0;list-style:none}
 .nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--muted);padding:.45rem .9rem;border-radius:100px;transition:color .2s,background .2s;cursor:pointer}
 .nav-links a:hover{color:var(--terra)}
@@ -352,7 +353,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:cen
 /* FOOTER */
 footer{background:#1A1208;padding:3rem}
 .footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem;margin-bottom:2.5rem;max-width:1100px;margin-left:auto;margin-right:auto}
-.footer-brand .footer-logo{font-family:'Georgia',serif;font-size:1.3rem;font-weight:700;color:var(--terra);display:block;margin-bottom:.5rem}
+.footer-brand .footer-logo{font-family:'Georgia',serif;font-size:1.3rem;font-weight:700;color:var(--terra);display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.footer-logo-img{width:2rem;height:2rem;object-fit:contain;flex-shrink:0}
 .footer-brand p{font-size:.78rem;color:#A89880;line-height:1.6;max-width:220px}
 .footer-col h5{font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:#8A7A66;margin-bottom:.9rem}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}

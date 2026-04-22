@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none">
+  <!-- Dotted arc spanning left to right -->
+  <path d="M 32 118 A 68 68 0 0 1 168 118"
+        stroke="#C4623A" stroke-width="2.5" stroke-dasharray="3 8"
+        stroke-linecap="round"/>
+
+  <!-- Arc left endpoint — filled circle -->
+  <circle cx="32" cy="118" r="5.5" fill="#C4623A"/>
+
+  <!-- Arc right endpoint — filled circle -->
+  <circle cx="168" cy="118" r="5.5" fill="#C4623A"/>
+
+  <!-- Arc apex — hollow circle -->
+  <circle cx="100" cy="50" r="5.5" stroke="#C4623A" stroke-width="2.5"/>
+
+  <!-- DUOMO (Cathedral dome) — left building -->
+  <!-- Drum / body -->
+  <rect x="66" y="103" width="32" height="15" fill="#C4623A"/>
+  <!-- Dome (semicircle) -->
+  <path d="M 66 103 A 16 16 0 0 1 98 103" fill="#C4623A"/>
+  <!-- Lantern post -->
+  <rect x="80" y="86" width="4" height="11" rx="1" fill="#C4623A"/>
+  <!-- Finial ball -->
+  <circle cx="82" cy="85" r="2.5" fill="#C4623A"/>
+
+  <!-- TORRE DEL MANGIA (tower) — right building -->
+  <!-- Main shaft -->
+  <rect x="102" y="80" width="20" height="38" fill="#C4623A"/>
+  <!-- Battlements (3 merlons) -->
+  <rect x="102" y="74" width="5"  height="8" rx="0.5" fill="#C4623A"/>
+  <rect x="109" y="74" width="5"  height="8" rx="0.5" fill="#C4623A"/>
+  <rect x="117" y="74" width="5"  height="8" rx="0.5" fill="#C4623A"/>
+</svg>
