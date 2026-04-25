@@ -544,7 +544,70 @@ async function submitPost() {
   showToast('Post shared with the community ✓');
 }
 
+// ── ANIMATED COUNTER ─────────────────────────────────────────────────────────
+function animateCounter(el, target, duration) {
+  const start = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased).toLocaleString();
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+(function initCounter() {
+  const el = document.getElementById('trust-counter');
+  if (!el) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animateCounter(el, 4000, 1800); obs.disconnect(); }
+    });
+  }, { threshold: 0.5 });
+  obs.observe(el);
+})();
+
+// ── HOUSING TEASER (homepage, first 3 listings) ───────────────────────────────
+function renderHousingTeaser() {
+  const grid = document.getElementById('housing-teaser-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  housingData.slice(0, 3).forEach(h => {
+    const card = document.createElement('div');
+    card.className = 'hb-card';
+    card.style.cursor = 'pointer';
+    card.onclick = () => { go('guide'); setTimeout(() => switchCat('housing-board', null), 150); };
+    card.innerHTML = `
+      <div class="hb-top"><div class="hb-type">${h.type}</div><div class="hb-area">📍 ${h.area}</div></div>
+      <div class="hb-price">€${h.price}<span>/month</span></div>
+      <p class="hb-desc">${h.desc}</p>
+      <div class="hb-available">Available from <strong>${h.available}</strong></div>
+      <div class="hb-footer">
+        <div class="hb-author">
+          <div class="avatar" style="background:${h.color};width:1.8rem;height:1.8rem;font-size:.7rem">${h.initials}</div>
+          <div><div class="hb-name">${h.author} ${h.country}</div><div class="hb-posted">${h.posted}</div></div>
+        </div>
+        <span class="hb-contact">View →</span>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ── URGENCY BANNER ────────────────────────────────────────────────────────────
+function dismissBanner() {
+  document.getElementById('urgency-banner').classList.add('hidden');
+  document.body.classList.remove('has-banner');
+  sessionStorage.setItem('sc_banner_dismissed', '1');
+}
+(function initBanner() {
+  if (sessionStorage.getItem('sc_banner_dismissed')) {
+    document.getElementById('urgency-banner').classList.add('hidden');
+  } else {
+    document.body.classList.add('has-banner');
+  }
+})();
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 loadPosts();
 loadProgress();
 updateGuidePersonalization();
+renderHousingTeaser();

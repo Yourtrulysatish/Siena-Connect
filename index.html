@@ -42,6 +42,14 @@
 
 <div id="toast"></div>
 
+<!-- URGENCY BANNER -->
+<div id="urgency-banner" class="urgency-banner">
+  <span class="urgency-dot"></span>
+  <span>September 2026 intake: Join the arrival WhatsApp group</span>
+  <a href="https://wa.me/" target="_blank" rel="noopener" class="urgency-cta">Join now →</a>
+  <button class="urgency-close" onclick="dismissBanner()" aria-label="Dismiss">✕</button>
+</div>
+
 <!-- NAV -->
 <nav>
   <a class="nav-logo" onclick="go('home')">
@@ -56,6 +64,10 @@
     <li><a onclick="go('about')" data-page="about">About</a></li>
   </ul>
   <div class="nav-right">
+    <a href="https://wa.me/" target="_blank" rel="noopener" class="nav-wa-link" title="Join our WhatsApp group">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.005 22l4.946-1.397A9.956 9.956 0 0011.999 22c5.523 0 10-4.477 10-10S17.522 2 11.999 2zm.001 18c-1.618 0-3.12-.44-4.411-1.2l-.317-.188-3.293.93.888-3.206-.205-.33A8 8 0 013.999 12c0-4.411 3.589-8 8.001-8C16.41 4 20 7.589 20 12c0 4.411-3.589 8-8 8z"/></svg>
+      <span>WhatsApp</span>
+    </a>
     <button class="nav-search-btn" onclick="openSearch()">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Search
@@ -163,17 +175,22 @@
     <div class="hero-bg"></div>
     <div class="fade-in">
       <span class="hero-tag"><span class="dot"></span> Free for international students</span>
-      <h1>Your guide to<br>settling in <em>Siena</em></h1>
-      <p class="hero-sub">Documents, housing, events, and a real community. Everything you need when you arrive in Italy, in one place.</p>
+      <h1>Don't arrive in Siena<br>without a <em>plan.</em></h1>
+      <p class="hero-sub">Documents, housing, events, and a real community. Everything you need when you land in Italy — in one place, by people who did it themselves.</p>
       <div class="btns">
         <button class="btn-primary" onclick="openSignup()">Get started — it's free</button>
         <button class="btn-ghost" onclick="go('guide')">Browse the guide</button>
+        <a href="https://wa.me/" target="_blank" rel="noopener" class="btn-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.005 22l4.946-1.397A9.956 9.956 0 0011.999 22c5.523 0 10-4.477 10-10S17.522 2 11.999 2zm.001 18c-1.618 0-3.12-.44-4.411-1.2l-.317-.188-3.293.93.888-3.206-.205-.33A8 8 0 013.999 12c0-4.411 3.589-8 8.001-8C16.41 4 20 7.589 20 12c0 4.411-3.589 8-8 8z"/></svg>
+          Join WhatsApp group
+        </a>
       </div>
       <div class="trust-line">
         <div class="avatars">
           <span>P</span><span>L</span><span>K</span><span>A</span>
         </div>
-        <span>Joined by students from 28+ countries</span>
+        <span>Joined by <strong id="trust-counter">4,000</strong>+ students</span>
+        <div class="trust-flags">🇮🇳 🇹🇳 🇫🇷 🇧🇷 🇨🇳 🇰🇷 <span class="trust-more">+23 more</span></div>
       </div>
     </div>
     <div class="hero-visual fade-in" style="animation-delay:.15s">
@@ -216,6 +233,52 @@
     </div>
   </div>
 
+  <!-- STUDENT SHORTCUTS -->
+  <div class="shortcuts-section">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag" style="text-align:center">Quick access</div>
+      <h2 class="section-title" style="text-align:center">Student <em>shortcuts</em></h2>
+    </div>
+    <div class="shortcuts-grid reveal" style="transition-delay:.1s">
+      <div class="shortcut-card" onclick="go('guide');setTimeout(()=>switchCat('documents',null),150)">
+        <div class="sc-icon">🔢</div>
+        <h4>Codice Fiscale</h4>
+        <p>Get your tax code on day one. Required for everything — a phone, a SIM, a bank account.</p>
+        <span class="sc-link">Go to guide →</span>
+      </div>
+      <div class="shortcut-card" onclick="go('guide');setTimeout(()=>switchCat('banking',null),150)">
+        <div class="sc-icon">💳</div>
+        <h4>Open a Bank Account</h4>
+        <p>N26, Revolut, or traditional banks — which ones work without the permesso.</p>
+        <span class="sc-link">Go to guide →</span>
+      </div>
+      <div class="shortcut-card" onclick="go('guide');setTimeout(()=>switchCat('transport',null),150)">
+        <div class="sc-icon">🎫</div>
+        <h4>Bus Pass</h4>
+        <p>Monthly student pass on Tiemme for around 20 to 28 euros. How to get it.</p>
+        <span class="sc-link">Go to guide →</span>
+      </div>
+      <div class="shortcut-card" onclick="go('guide');setTimeout(()=>switchCat('documents',null),150)">
+        <div class="sc-icon">💶</div>
+        <h4>Cost of Living</h4>
+        <p>Average room, food, and transport costs in Siena so you can budget before you arrive.</p>
+        <span class="sc-link">Go to guide →</span>
+      </div>
+      <div class="shortcut-card" onclick="go('guide');setTimeout(()=>switchCat('university',null),150)">
+        <div class="sc-icon">💼</div>
+        <h4>Student Jobs</h4>
+        <p>Work rights, DSU grants, and where to find part-time work as an international student.</p>
+        <span class="sc-link">Go to guide →</span>
+      </div>
+      <div class="shortcut-card" onclick="go('guide');setTimeout(()=>switchCat('university',null),150)">
+        <div class="sc-icon">🛒</div>
+        <h4>Cheap Supermarkets</h4>
+        <p>Lidl, Penny, Conad — where to shop on a student budget in Siena.</p>
+        <span class="sc-link">Go to guide →</span>
+      </div>
+    </div>
+  </div>
+
   <div class="feat-strip">
     <div class="feat-header reveal">
       <div><div class="section-tag">What we offer</div><h2 class="section-title">Everything you need,<br><em>in one place</em></h2></div>
@@ -228,6 +291,24 @@
       <div class="fcard" onclick="go('community')"><div class="fi">💬</div><h3>Community Forum</h3><p>Ask questions, share tips, and get answers from students who have been through the same experience.</p><span class="learn">Join the conversation →</span></div>
       <div class="fcard" onclick="go('guide'); setTimeout(()=>switchCat('housing-board',null),150)"><div class="fi">🏠</div><h3>Housing Board</h3><p>Rooms posted by students leaving Siena. No agencies, no fees, direct from students.</p><span class="learn">Find a room →</span></div>
       <div class="fcard" onclick="go('about')"><div class="fi">🌍</div><h3>28+ Nationalities</h3><p>A growing community of international students from across the world, all navigating Siena together.</p><span class="learn">Meet the community →</span></div>
+    </div>
+  </div>
+
+  <!-- HOUSING TEASER -->
+  <div class="housing-teaser">
+    <div class="housing-teaser-inner">
+      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
+        <div>
+          <div class="section-tag">Student Housing</div>
+          <h2 class="section-title" style="margin-bottom:0">Rooms posted by<br><em>students leaving Siena</em></h2>
+        </div>
+        <button class="btn-ghost" onclick="go('guide');setTimeout(()=>switchCat('housing-board',null),150)">View all listings →</button>
+      </div>
+      <div class="ht-grid reveal" style="transition-delay:.1s" id="housing-teaser-grid"></div>
+      <div class="ht-footer reveal" style="transition-delay:.2s;text-align:center;margin-top:2rem">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">No agency fees. Posted directly by students.</p>
+        <button class="btn-primary" onclick="go('guide');setTimeout(()=>switchCat('housing-board',null),150)">View all listings →</button>
+      </div>
     </div>
   </div>
 
@@ -653,7 +734,7 @@
     <span class="footer-copy">© 2026 Siena Connect · Built by three international students · Siena, Italy &nbsp;·&nbsp; <a onclick="openPrivacy()" style="color:#8A7A66;cursor:pointer;text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a onclick="openTerms()" style="color:#8A7A66;cursor:pointer;text-decoration:underline">Terms</a></span>
     <div class="footer-social">
       <a onclick="showToast('Instagram coming soon!')" title="Instagram">📸</a>
-      <a onclick="showToast('WhatsApp group coming soon!')" title="WhatsApp">💬</a>
+      <a href="https://wa.me/" target="_blank" rel="noopener" title="Join our WhatsApp group">💬</a>
       <a onclick="showToast('LinkedIn coming soon!')" title="LinkedIn">💼</a>
     </div>
   </div>
