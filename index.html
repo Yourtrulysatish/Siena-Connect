@@ -72,7 +72,23 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Search
     </button>
-    <button class="nav-cta" onclick="openSignup()">Join Free</button>
+
+    <!-- Logged-out: Join Free -->
+    <button class="nav-cta" id="nav-join-btn" onclick="openSignup()">Join Free</button>
+
+    <!-- Logged-in: user avatar + dropdown -->
+    <div class="nav-user-menu" id="nav-user-menu" style="display:none" role="menu">
+      <button class="nav-user-btn" onclick="toggleUserMenu()" aria-haspopup="true">
+        <div class="nav-user-avatar" id="nav-user-avatar">?</div>
+        <span class="nav-user-name" id="nav-user-name"></span>
+        <span class="nav-user-caret">▾</span>
+      </button>
+      <div class="nav-user-dropdown" id="nav-user-dropdown" role="menu">
+        <a onclick="go('dashboard');closeUserMenu()" data-page="dashboard">📊 Dashboard</a>
+        <a id="admin-nav-link" onclick="go('admin');closeUserMenu()" style="display:none">⚙️ Admin</a>
+        <a onclick="signOut()">↩ Sign out</a>
+      </div>
+    </div>
   </div>
   <button class="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -86,7 +102,9 @@
   <a onclick="go('events');toggleMenu()" data-page="events">🎭 Events</a>
   <a onclick="go('community');toggleMenu()" data-page="community">💬 Community</a>
   <a onclick="go('about');toggleMenu()" data-page="about">👥 About</a>
-  <a onclick="openSignup();toggleMenu()" style="color:var(--terra);font-weight:600">✦ Join Free →</a>
+  <a id="mobile-signin-link" onclick="openSignup();toggleMenu()" style="color:var(--terra);font-weight:600">✦ Join Free →</a>
+  <a id="mobile-signout-link" onclick="signOut();toggleMenu()" style="display:none;color:var(--muted)">↩ Sign out</a>
+  <a onclick="go('dashboard');toggleMenu()" data-page="dashboard" style="color:var(--terra)">📊 Dashboard</a>
 </div>
 
 <!-- SEARCH OVERLAY -->
@@ -103,47 +121,94 @@
   </div>
 </div>
 
-<!-- SIGNUP MODAL -->
+<!-- AUTH MODAL (multi-step: email → magic link sent → profile → success) -->
 <div id="signup-modal" onclick="closeModalOutside(event)">
   <div class="modal-box">
+    <input type="hidden" id="modal-auth-step" value="email">
     <button class="modal-close" onclick="closeSignup()">✕</button>
+
+    <!-- ── STEP 1: Email + profile form ── -->
     <div id="modal-form-view">
       <h2>Join Siena Connect</h2>
-      <p>Free for all international students. Takes 30 seconds.</p>
-      <div class="form-row">
-        <div class="form-group"><label>First Name</label><input id="sig-first" type="text" placeholder="Maria" /><span class="form-error"></span></div>
-        <div class="form-group"><label>Last Name</label><input id="sig-last" type="text" placeholder="González" /><span class="form-error"></span></div>
+      <p>Free for all international students. We'll send a magic link to verify your email.</p>
+
+      <!-- Sign-in hint (shown when mode = signin) -->
+      <div id="auth-signin-hint" style="display:none;background:rgba(196,98,58,.07);border-radius:10px;padding:.75rem 1rem;margin-bottom:1.1rem;font-size:.83rem;color:var(--muted)">
+        Already a member? Enter your email below and we'll send you a link to sign in instantly.
       </div>
-      <div class="form-group"><label>Email</label><input id="sig-email" type="email" placeholder="you@university.com" /><span class="form-error"></span></div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input id="sig-email" type="email" placeholder="you@university.com" autocomplete="email" />
+        <span class="form-error"></span>
+      </div>
+
+      <!-- Profile fields (hidden for sign-in mode) -->
+      <div id="auth-profile-fields">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input id="sig-first" type="text" placeholder="Maria" autocomplete="given-name" /><span class="form-error"></span></div>
+          <div class="form-group"><label>Last Name</label><input id="sig-last" type="text" placeholder="González" autocomplete="family-name" /><span class="form-error"></span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Nationality</label>
+            <select id="sig-nationality">
+              <option value="">Select country…</option>
+            </select>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group"><label>University</label>
+            <select id="sig-university">
+              <option value="">Select…</option>
+              <option>Università di Siena</option>
+              <option>Università per Stranieri di Siena</option>
+              <option>Other / Erasmus</option>
+            </select>
+            <span class="form-error"></span>
+          </div>
+        </div>
+        <div class="form-group"><label>Arrival Month</label>
+          <select id="sig-arrival">
+            <option>Already here</option>
+            <option>May 2026</option><option>June 2026</option>
+            <option>September 2026</option><option>October 2026</option><option>January 2027</option>
+          </select>
+        </div>
+      </div><!-- /auth-profile-fields -->
+
+      <button class="modal-submit" onclick="submitSignup()">Create my free account →</button>
+      <p style="text-align:center;font-size:.77rem;color:var(--light);margin-top:.9rem">
+        Already a member? <a onclick="openAuth('signin')" style="color:var(--terra);cursor:pointer;text-decoration:underline">Sign in →</a>
+      </p>
+    </div><!-- /modal-form-view -->
+
+    <!-- ── STEP 2: Magic link sent ── -->
+    <div id="modal-sent-view" style="display:none;text-align:center;padding:1rem 0">
+      <div style="font-size:3rem;margin-bottom:1rem">📬</div>
+      <h3 style="font-family:'Georgia',serif;font-size:1.5rem;font-weight:400;color:var(--dark);margin-bottom:.6rem">Check your inbox</h3>
+      <p style="font-size:.88rem;color:var(--muted);line-height:1.65;max-width:300px;margin:0 auto 1.2rem">
+        We sent a magic link to <strong id="sent-email-display" style="color:var(--dark)"></strong>.<br>
+        Click the link in the email to sign in — no password needed.
+      </p>
+      <p style="font-size:.75rem;color:var(--light)">Didn't get it? Check your spam folder or <a onclick="setAuthStep('email')" style="color:var(--terra);cursor:pointer;text-decoration:underline">try again</a>.</p>
+    </div>
+
+    <!-- ── STEP 3: Complete profile (post magic-link, new users) ── -->
+    <div id="modal-profile-view" style="display:none">
+      <h2>Complete your profile</h2>
+      <p>Just a few details to personalise your guide.</p>
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input id="prof-first" type="text" placeholder="Maria" /><span class="form-error"></span></div>
+        <div class="form-group"><label>Last Name</label><input id="prof-last" type="text" placeholder="González" /><span class="form-error"></span></div>
+      </div>
       <div class="form-row">
         <div class="form-group"><label>Nationality</label>
-          <select id="sig-nationality">
+          <select id="prof-nationality">
             <option value="">Select country…</option>
-            <optgroup label="Non-EU">
-              <option>🇮🇳 India</option><option>🇨🇳 China</option><option>🇹🇳 Tunisia</option>
-              <option>🇲🇳 Mongolia</option><option>🇧🇷 Brazil</option><option>🇳🇬 Nigeria</option>
-              <option>🇯🇵 Japan</option><option>🇲🇦 Morocco</option><option>🇵🇰 Pakistan</option>
-              <option>🇧🇩 Bangladesh</option><option>🇺🇸 USA</option><option>🇨🇦 Canada</option>
-              <option>🇦🇺 Australia</option><option>🇹🇷 Turkey</option><option>🇪🇬 Egypt</option>
-              <option>🇰🇷 South Korea</option><option>🇷🇺 Russia</option><option>🇺🇦 Ukraine</option>
-            </optgroup>
-            <optgroup label="EU / EEA">
-              <option>France</option><option>Germany</option><option>Spain</option>
-              <option>Austria</option><option>Belgium</option><option>Bulgaria</option>
-              <option>Croatia</option><option>Czech Republic</option><option>Denmark</option>
-              <option>Estonia</option><option>Finland</option><option>Greece</option>
-              <option>Hungary</option><option>Ireland</option><option>Latvia</option>
-              <option>Lithuania</option><option>Luxembourg</option><option>Malta</option>
-              <option>Netherlands</option><option>Poland</option><option>Portugal</option>
-              <option>Romania</option><option>Slovakia</option><option>Slovenia</option>
-              <option>Sweden</option><option>Norway</option><option>Iceland</option>
-            </optgroup>
-            <option value="Other">Other</option>
           </select>
           <span class="form-error"></span>
         </div>
         <div class="form-group"><label>University</label>
-          <select id="sig-university">
+          <select id="prof-university">
             <option value="">Select…</option>
             <option>Università di Siena</option>
             <option>Università per Stranieri di Siena</option>
@@ -153,21 +218,24 @@
         </div>
       </div>
       <div class="form-group"><label>Arrival Month</label>
-        <select id="sig-arrival">
+        <select id="prof-arrival">
           <option>Already here</option>
           <option>May 2026</option><option>June 2026</option>
           <option>September 2026</option><option>October 2026</option><option>January 2027</option>
         </select>
       </div>
-      <button class="modal-submit" onclick="submitSignup()">Create my free account →</button>
+      <button class="modal-submit" onclick="submitProfile()">Complete profile →</button>
     </div>
-    <div class="modal-success" id="modal-success-view">
+
+    <!-- ── STEP 4: Success ── -->
+    <div class="modal-success" id="modal-success-view" style="display:none">
       <div class="check">✅</div>
       <h3>Welcome to Siena Connect!</h3>
-      <p>Your personalised 30-day checklist is ready. Check your email for the link to get started.</p>
+      <p>Your personalised 30-day checklist is ready. Taking you to your dashboard…</p>
     </div>
+
   </div>
-</div>
+</div><!-- /signup-modal -->
 
 <!-- ══ HOME ══ -->
 <div class="page active" id="home">
@@ -476,7 +544,7 @@
           <h3>Housing Board</h3>
           <p>Rooms posted directly by students leaving Siena. No agencies, no fees.</p>
         </div>
-        <button class="btn-primary" style="font-size:.8rem;padding:.6rem 1.3rem" onclick="openSignup()">Post a room →</button>
+        <button class="btn-primary" style="font-size:.8rem;padding:.6rem 1.3rem" onclick="openPostRoom()">Post a room →</button>
       </div>
       <div class="hb-grid" id="housing-board-grid"></div>
     </div>
@@ -695,6 +763,141 @@
   </div>
 </div>
 
+<!-- ══ DASHBOARD ══ -->
+<div class="page" id="dashboard">
+  <div class="dash-hero">
+    <div class="dash-hero-inner">
+      <div class="dash-greeting">
+        <div class="dash-avatar" id="dash-avatar">?</div>
+        <div>
+          <h1>Welcome back, <span id="dash-name">…</span> 👋</h1>
+          <p id="dash-sub" style="color:rgba(245,239,228,.75);font-size:.9rem;margin-top:.2rem"></p>
+        </div>
+      </div>
+      <div class="dash-quick-actions">
+        <button class="dqa-btn" onclick="go('guide')">📋 Continue checklist</button>
+        <a href="https://wa.me/" target="_blank" rel="noopener" class="dqa-btn">💬 WhatsApp group</a>
+        <button class="dqa-btn" onclick="openPostRoom()">🏠 Post a room</button>
+        <button class="dqa-btn dqa-signout" onclick="signOut()">↩ Sign out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="dash-progress-strip">
+    <div class="dash-hero-inner">
+      <div class="dps-label">
+        <span>Checklist progress</span>
+        <strong id="dash-progress-text">0 of 12 tasks</strong>
+      </div>
+      <div class="dps-track"><div class="dps-fill" id="dash-pb-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Dashboard body -->
+  <div class="dash-body">
+    <div class="dash-grid">
+
+      <!-- Upcoming events -->
+      <div class="dash-card">
+        <div class="dc-header">
+          <h3>Upcoming Events</h3>
+          <a onclick="go('events')" class="dc-link">See all →</a>
+        </div>
+        <div id="dash-events-list">
+          <p style="color:var(--muted);font-size:.85rem">Loading…</p>
+        </div>
+      </div>
+
+      <!-- Priority tasks -->
+      <div class="dash-card">
+        <div class="dc-header">
+          <h3>Priority Tasks</h3>
+          <a onclick="go('guide')" class="dc-link">Full guide →</a>
+        </div>
+        <div id="dash-tasks">
+          <p style="color:var(--muted);font-size:.85rem">Loading…</p>
+        </div>
+      </div>
+
+      <!-- Saved housing (full width) -->
+      <div class="dash-card dash-full">
+        <div class="dc-header">
+          <h3>Saved Housing</h3>
+          <a onclick="go('guide');setTimeout(()=>switchCat('housing-board',null),150)" class="dc-link">Housing board →</a>
+        </div>
+        <div id="dash-saved-listings">
+          <p style="color:var(--muted);font-size:.85rem">No saved listings yet. Browse the <a onclick="go('guide');setTimeout(()=>switchCat('housing-board',null),150)" style="color:var(--terra);cursor:pointer;text-decoration:underline">Housing Board</a> and save rooms you like.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div class="page" id="admin">
+  <div class="admin-hero">
+    <h1 style="font-family:'Georgia',serif;font-size:2.2rem;font-weight:400;color:var(--dark);margin-bottom:.3rem">Admin Panel</h1>
+    <p style="color:var(--muted);font-size:.9rem">Manage housing, events, users, and community posts.</p>
+  </div>
+  <div class="admin-body">
+    <div class="admin-tabs">
+      <button class="at-btn active" data-tab="housing" onclick="switchAdminTab('housing',this)">🏠 Housing</button>
+      <button class="at-btn"        data-tab="events"  onclick="switchAdminTab('events',this)">🎭 Events</button>
+      <button class="at-btn"        data-tab="users"   onclick="switchAdminTab('users',this)">👥 Users</button>
+      <button class="at-btn"        data-tab="posts"   onclick="switchAdminTab('posts',this)">💬 Posts</button>
+    </div>
+    <div class="admin-section active" id="admin-housing"><p class="admin-loading">Loading…</p></div>
+    <div class="admin-section"        id="admin-events"><p class="admin-loading">Loading…</p></div>
+    <div class="admin-section"        id="admin-users"><p class="admin-loading">Loading…</p></div>
+    <div class="admin-section"        id="admin-posts"><p class="admin-loading">Loading…</p></div>
+  </div>
+</div>
+
+<!-- POST ROOM MODAL -->
+<div id="post-room-modal" onclick="closePostRoomOutside(event)" class="sc-modal">
+  <div class="modal-box" style="max-height:90vh;overflow-y:auto">
+    <button class="modal-close" onclick="closePostRoom()">✕</button>
+    <h2>Post a Room</h2>
+    <p>Your listing will go live after a quick admin review (usually within 24 hours).</p>
+    <form id="post-room-form" onsubmit="return false">
+      <div class="form-row">
+        <div class="form-group"><label>Room Type</label>
+          <select id="pr-type">
+            <option value="">Select…</option>
+            <option>Single room</option><option>Double room</option>
+            <option>Studio</option><option>Shared room</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Area / District</label>
+          <input id="pr-area" type="text" placeholder="e.g. Centro Storico" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Monthly Price (€)</label>
+          <input id="pr-price" type="number" min="50" max="3000" placeholder="420" />
+        </div>
+        <div class="form-group"><label>Available From</label>
+          <input id="pr-available" type="text" placeholder="e.g. Sep 2026" />
+        </div>
+      </div>
+      <div class="form-group"><label>Description</label>
+        <textarea id="pr-desc" rows="3" style="width:100%;border:1.5px solid rgba(196,98,58,.2);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;resize:vertical;outline:none;font-family:inherit;background:var(--bg)" placeholder="Describe the room, flat, amenities, nearby transport…"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Contact Email <span style="color:var(--muted);font-weight:300">(optional)</span></label>
+          <input id="pr-contact-email" type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group"><label>WhatsApp Number <span style="color:var(--muted);font-weight:300">(optional)</span></label>
+          <input id="pr-contact-wa" type="tel" placeholder="+39 333 000 0000" />
+        </div>
+      </div>
+      <button class="modal-submit" onclick="submitHousingListing()">Post listing →</button>
+    </form>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -784,6 +987,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<!-- config.js is gitignored; only exists in local dev. In production Vercel injects vars via /api/config -->
+<script src="config.js" onerror=""></script>
 <script src="main.js"></script>
 <script>
   function openPrivacy() { const m = document.getElementById('privacy-modal'); m.style.display = 'flex'; }

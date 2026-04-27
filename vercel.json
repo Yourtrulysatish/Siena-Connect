@@ -1,0 +1,26 @@
+{
+  "rewrites": [
+    { "source": "/codice-fiscale-siena",   "destination": "/seo/codice-fiscale-siena.html" },
+    { "source": "/permesso-siena",         "destination": "/seo/permesso-siena.html" },
+    { "source": "/student-housing-siena",  "destination": "/seo/student-housing-siena.html" },
+    { "source": "/cost-of-living-siena",   "destination": "/seo/cost-of-living-siena.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin",  "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options",        "value": "DENY" },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}
